@@ -1,0 +1,427 @@
+<!DOCTYPE html>
+<html lang="ru" data-theme="dark" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FlowTech — интеграция ИИ в бизнес-процессы</title>
+    <link rel="icon" type="image/png" th:href="@{/img/favicon2.png}">
+    <link rel="apple-touch-icon" th:href="@{/img/favicon2.png}">
+    <script>
+        (function () {
+            try {
+                var savedTheme = localStorage.getItem('flowtech-theme');
+                if (savedTheme === 'light' || savedTheme === 'dark') {
+                    document.documentElement.setAttribute('data-theme', savedTheme);
+                }
+                var savedLang = localStorage.getItem('flowtech-lang');
+                if (savedLang === 'ru' || savedLang === 'kk') {
+                    document.documentElement.setAttribute('lang', savedLang);
+                }
+            } catch (e) { /* localStorage недоступен — остаёмся на настройках по умолчанию */ }
+        })();
+    </script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+</head>
+<body>
+
+<header class="site-header">
+    <div class="wrap header-inner">
+        <a href="#top" class="logo">
+            <img src="/img/logo-dark.png" alt="FlowTech" class="logo-img logo-img-dark" height="44">
+            <img src="/img/logo-light.png" alt="FlowTech" class="logo-img logo-img-light" height="44">
+        </a>
+        <nav class="main-nav" id="main-nav">
+            <a href="#solutions" data-i18n="nav.solutions">Решения</a>
+            <a href="#stack" data-i18n="nav.stack">Технологии</a>
+            <a href="#projects" data-i18n="nav.projects">Наши проекты</a>
+            <a href="#assistant" data-i18n="nav.assistant">AI-ассистент</a>
+            <a href="#contact" data-i18n="nav.contact">Контакты</a>
+        </nav>
+        <div class="header-actions">
+            <button type="button" id="theme-toggle" class="theme-toggle" aria-label="Переключить светлую тему" aria-pressed="false">
+                <svg class="icon-moon" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><path fill="currentColor" d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79Z"/></svg>
+                <svg class="icon-sun" viewBox="0 0 24 24" width="18" height="18" aria-hidden="true"><circle cx="12" cy="12" r="4.2" fill="currentColor"/><g stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M12 2.5v2.6M12 18.9v2.6M4.2 4.2l1.8 1.8M18 18l1.8 1.8M2.5 12h2.6M18.9 12h2.6M4.2 19.8 6 18M18 6l1.8-1.8"/></g></svg>
+            </button>
+            <button type="button" id="lang-toggle" class="lang-toggle" data-i18n-aria="lang.toggle" aria-label="Переключить язык">
+                <span id="lang-toggle-label">ҚАЗ</span>
+            </button>
+            <a href="#contact" class="btn btn-ghost header-cta" data-i18n="header.cta">Обсудить проект</a>
+            <button type="button" id="nav-toggle" class="nav-toggle" data-i18n-aria="nav.toggle" aria-label="Открыть меню" aria-expanded="false" aria-controls="main-nav">
+                <span></span><span></span><span></span>
+            </button>
+        </div>
+    </div>
+</header>
+
+<main id="top">
+
+    <!-- HERO -->
+    <section class="hero wrap">
+        <div class="hero-copy">
+            <h1>
+                <span data-i18n="hero.line1">Подключаем ИИ</span><br>
+                <span data-i18n="hero.line2">к процессам, которые</span><br>
+                <span class="hero-highlight" data-i18n="hero.line3">уже приносят деньги</span>
+            </h1>
+            <p class="hero-lead" data-i18n="hero.lead">
+                Не меняем вашу систему целиком — встраиваем ИИ в существующие CRM, сайты
+                и внутренние процессы. Быстрее обрабатываете заявки, меньше рутины у команды,
+                решения на основе данных, а не интуиции.
+            </p>
+            <div class="hero-actions">
+                <a href="#contact" class="btn btn-primary btn-lg" data-i18n="hero.btnPrimary">Оставить заявку</a>
+                <a href="#assistant" class="btn btn-outline" data-i18n="hero.btnOutline">Спросить AI-ассистента</a>
+            </div>
+        </div>
+
+        <div class="hero-diagram" aria-hidden="true">
+            <svg viewBox="0 0 460 380" class="wiring-svg">
+                <!-- traces: входы -->
+                <path class="trace" d="M130 60 H170 Q190 60 190 80 V150 Q190 170 218 170"/>
+                <path class="trace" d="M130 190 H218"/>
+                <path class="trace" d="M130 320 H170 Q190 320 190 300 V210 Q190 190 218 190"/>
+
+                <!-- traces: выходы -->
+                <path class="trace" d="M302 170 Q322 170 322 150 V80 Q322 60 330 60"/>
+                <path class="trace" d="M302 190 H330"/>
+                <path class="trace" d="M302 210 Q322 210 322 230 V300 Q322 320 330 320"/>
+
+                <!-- input nodes -->
+                <g class="node">
+                    <rect x="10" y="42" width="120" height="36" rx="4"/>
+                    <text x="70" y="65" text-anchor="middle" data-i18n="diagram.input1">Заявки с сайта</text>
+                </g>
+                <g class="node">
+                    <rect x="10" y="172" width="120" height="36" rx="4"/>
+                    <text x="70" y="195" text-anchor="middle">CRM / 1С</text>
+                </g>
+                <g class="node">
+                    <rect x="10" y="302" width="120" height="36" rx="4"/>
+                    <text x="70" y="325" text-anchor="middle" data-i18n="diagram.input3">Звонки, чаты</text>
+                </g>
+
+                <!-- core -->
+                <g class="core-node">
+                    <circle cx="260" cy="190" r="42"/>
+                    <circle cx="260" cy="190" r="42" class="pulse-ring"/>
+                    <text x="260" y="186" text-anchor="middle" class="core-label">AI</text>
+                    <text x="260" y="202" text-anchor="middle" class="core-sub" data-i18n="diagram.core">ядро</text>
+                </g>
+
+                <!-- output nodes -->
+                <g class="node node-out">
+                    <rect x="330" y="42" width="120" height="36" rx="4"/>
+                    <text x="390" y="65" text-anchor="middle" data-i18n="diagram.output1">Приоритизация</text>
+                </g>
+                <g class="node node-out">
+                    <rect x="330" y="172" width="120" height="36" rx="4"/>
+                    <text x="390" y="195" text-anchor="middle" data-i18n="diagram.output2">Отчёты</text>
+                </g>
+                <g class="node node-out">
+                    <rect x="330" y="302" width="120" height="36" rx="4"/>
+                    <text x="390" y="325" text-anchor="middle" data-i18n="diagram.output3">Авто-ответы</text>
+                </g>
+
+                <circle class="signal" r="3.2"><animateMotion dur="3.4s" repeatCount="indefinite" path="M130 60 H170 Q190 60 190 80 V150 Q190 170 218 170"/></circle>
+                <circle class="signal" r="3.2"><animateMotion dur="2.6s" repeatCount="indefinite" path="M130 190 H218"/></circle>
+                <circle class="signal" r="3.2"><animateMotion dur="3.8s" repeatCount="indefinite" path="M302 170 Q322 170 322 150 V80 Q322 60 330 60"/></circle>
+                <circle class="signal" r="3.2"><animateMotion dur="3s" repeatCount="indefinite" path="M302 190 H330"/></circle>
+                <circle class="signal" r="3.2"><animateMotion dur="4.2s" repeatCount="indefinite" path="M130 320 H170 Q190 320 190 300 V210 Q190 190 218 190"/></circle>
+                <circle class="signal" r="3.2"><animateMotion dur="3.6s" repeatCount="indefinite" path="M302 210 Q322 210 322 230 V300 Q322 320 330 320"/></circle>
+            </svg>
+            <p class="diagram-caption" data-i18n="diagram.caption"></p>
+        </div>
+    </section>
+
+    <!-- SOLUTIONS -->
+    <section id="solutions" class="section">
+        <div class="wrap">
+            <h2 class="section-title" data-i18n="solutions.title">Что мы внедряем</h2>
+
+            <div class="cards-grid">
+                <article class="card">
+                    <h3 data-i18n="solutions.a.title">AI-ассистенты для клиентов</h3>
+                    <p data-i18n="solutions.a.text">Чат-бот на сайте или в WhatsApp, который отвечает на вопросы, консультирует
+                        по услугам и передаёт тёплые заявки менеджеру — без потери контекста диалога.</p>
+                </article>
+                <article class="card">
+                    <h3 data-i18n="solutions.b.title">Автоматизация рутинных процессов</h3>
+                    <p data-i18n="solutions.b.text">Классификация обращений, заполнение карточек в CRM, сортировка заявок по
+                        приоритету — то, что раньше делал человек вручную, теперь делает модель.</p>
+                </article>
+                <article class="card">
+                    <h3 data-i18n="solutions.c.title">Интеграция ИИ в CRM / ERP</h3>
+                    <p data-i18n="solutions.c.text">Подключаем модели к вашей текущей системе: не меняем инфраструктуру, а
+                        встраиваем ИИ-слой поверх процессов, которые уже работают.</p>
+                </article>
+                <article class="card">
+                    <h3 data-i18n="solutions.d.title">Аналитика и прогнозирование</h3>
+                    <p data-i18n="solutions.d.text">Прогноз спроса, оценка оттока клиентов, поиск аномалий в данных — отчёты,
+                        которые готовятся автоматически и обновляются каждый день.</p>
+                </article>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="stack" class="section section-alt">
+        <div class="wrap">
+            <div class="stack-heading">
+                <div>
+                    <h2 class="section-title" data-i18n="stack.title">На чём это работает</h2>
+                </div>
+                <div class="stack-nav">
+                    <button type="button" class="stack-arrow" id="stack-prev" data-i18n-aria="stack.prev" aria-label="Прокрутить назад">&larr;</button>
+                    <button type="button" class="stack-arrow" id="stack-next" data-i18n-aria="stack.next" aria-label="Прокрутить вперёд">&rarr;</button>
+                </div>
+            </div>
+
+            <div class="stack-carousel">
+                <div class="stack-track" id="stack-track">
+                    <div class="stack-item">
+                        <span class="stack-icon">🧠</span>
+                        <h4 data-i18n="stack.llm.title">LLM и NLP</h4>
+                        <p data-i18n="stack.llm.text">Большие языковые модели для диалогов, обработки текста и работы со знаниями компании.</p>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-icon">👁</span>
+                        <h4>Computer Vision</h4>
+                        <p data-i18n="stack.cv.text">Распознавание изображений и документов — контроль качества, автоматическая проверка.</p>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-icon">☁️</span>
+                        <h4 data-i18n="stack.cloud.title">Облачная инфраструктура</h4>
+                        <p data-i18n="stack.cloud.text">Развёртывание на AWS, GCP, Azure или на серверах заказчика — с учётом требований к данным.</p>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-icon">🔒</span>
+                        <h4 data-i18n="stack.security.title">Безопасность данных</h4>
+                        <p data-i18n="stack.security.text">Шифрование, разграничение доступа и хранение чувствительных данных по вашим правилам.</p>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-icon">⚙️</span>
+                        <h4>Java / Spring backend</h4>
+                        <p data-i18n="stack.java.text">Надёжный серверный слой для интеграций с CRM, ERP и внутренними API компании.</p>
+                    </div>
+                    <div class="stack-item">
+                        <span class="stack-icon">🔗</span>
+                        <h4 data-i18n="stack.api.title">API-интеграции</h4>
+                        <p data-i18n="stack.api.text">Подключение ИИ к 1С, amoCRM, Bitrix24 и другим системам через REST/webhook.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="projects" class="section">
+        <div class="wrap">
+            <h2 class="section-title" data-i18n="projects.title">Что мы уже сделали</h2>
+
+            <div class="projects-grid">
+                <div class="project-item">
+                    <div class="project-card">
+                        <img src="/img/image-1.png" alt="Проект 1" data-i18n-alt="projects.alt1" class="project-image">
+                    </div>
+                    <div class="project-caption">
+                        <h4 class="project-title">TI Detailing</h4>
+                        <p class="project-desc">
+                            TI Detailing — это инновационная платформа, использующая искусственный интеллект для автоматизации консультаций клиентов автосервиса и контроля качества услуг. Система анализирует запросы клиентов в реальном времени, предоставляет персонализированные рекомендации и отслеживает качество выполнения работ, минимизируя ошибки. Платформа интегрируется с CRM-системами и обеспечивает бесшовное взаимодействие между клиентами и персоналом.</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-card">
+                        <img src="/img/image-2.png" alt="Проект 2" data-i18n-alt="projects.alt2" class="project-image">
+                    </div>
+                    <div class="project-caption">
+                        <h4 class="project-title">Zen Studio</h4>
+                        <p class="project-desc">
+                            Zen Studio — это умная система управления для студий йоги и фитнес-центров. ИИ-менеджер автоматизирует процесс бронирования занятий, обработки платежей и уведомлений клиентов. Система поддерживает интеграцию с популярными платежными шлюзами, такими как Stripe, и предоставляет аналитику по посещаемости и доходам, что помогает владельцам оптимизировать бизнес-процессы.</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-card">
+                        <img src="/img/image-3.jpg" alt="Проект 3" data-i18n-alt="projects.alt3" class="project-image">
+                      </div>
+                    <div class="project-caption">
+                        <h4 class="project-title">Психология</h4>
+                        <p class="project-desc">
+                            Психология — это уникальный проект, предлагающий услуги ИИ-психолога с реалистичным видео-аватаром. Система использует алгоритмы обработки естественного языка и машинного обучения для проведения консультаций, анализа эмоционального состояния и предоставления рекомендаций. WebRTC обеспечивает качественную видеосвязь, а Three.js создает интерактивный 3D-аватар, делая общение более естественным.</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-card">
+                        <img src="/img/image-4.jpg" alt="Проект 4" data-i18n-alt="projects.alt4" class="project-image">
+                     </div>
+                    <div class="project-caption">
+                        <h4 class="project-title">HR-менеджер</h4>
+                        <p class="project-desc">
+                            HR-менеджер — это ИИ-платформа для автоматизации процессов найма. Система анализирует резюме, проводит предварительные собеседования через чат-ботов и оценивает кандидатов на основе их навыков и корпоративной культуры. Использование TypeScript и PostgreSQL обеспечивает высокую производительность и надежное хранение данных, а Express ускоряет разработку серверной части.</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-card">
+                        <img src="/img/image-5.jpg" alt="Проект 5" data-i18n-alt="projects.alt5" class="project-image">
+                    </div>
+                    <div class="project-caption">
+                        <h4 class="project-title">Коворкинг</h4>
+                        <p class="project-desc">
+                            Коворкинг — это решение для автоматизации клиентского сервиса в коворкинг-пространствах. ИИ-бот отвечает на вопросы клиентов о бронировании рабочих мест, доступных услугах и мероприятиях. Интеграция с AWS и GraphQL обеспечивает масштабируемость и гибкость, а Flutter позволяет создать единый интерфейс для iOS и Android.</p>
+                    </div>
+                </div>
+                <div class="project-item">
+                    <div class="project-card">
+                        <img src="/img/image-6.jpg" alt="Проект 6" data-i18n-alt="projects.alt6" class="project-image">
+                      </div>
+                    <div class="project-caption">
+                        <h4 class="project-title">Персональное менторство</h4>
+                        <p class="project-desc">
+                            Персональное менторство — это ИИ-платформа для поддержки образовательных групп и индивидуальных консультаций. Чат-бот, построенный на Flutter и Firebase, предоставляет персонализированные учебные планы, отслеживает прогресс и организует групповые сессии через Socket.IO. Система помогает менторам эффективно управлять большими группами студентов.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <section class="section stats-section">
+        <div class="wrap stats-grid" id="stats">
+            <div class="stat">
+                <span class="stat-value" data-target="24">0</span>
+                <span class="stat-label" data-i18n="stats.integrations">внедрённых интеграции</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value" data-target="5">0</span>
+                <span class="stat-label" data-i18n="stats.experience">лет опыта в ИИ и разработке</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value" data-target="93" data-suffix="%">0%</span>
+                <span class="stat-label" data-i18n="stats.retention">клиентов продлевают сотрудничество</span>
+            </div>
+            <div class="stat">
+                <span class="stat-value" data-target="12">0</span>
+                <span class="stat-label" data-i18n="stats.team">инженеров и дата-специалистов</span>
+            </div>
+        </div>
+    </section>
+
+
+    <section id="assistant" class="section section-alt">
+        <div class="wrap">
+            <h2 class="section-title" style="text-align:center;" data-i18n="assistant.title">Спросите прямо сейчас</h2>
+
+            <div class="chat-widget" style="max-width: 600px; margin: 0 auto;">
+                <div class="chat-header">
+                    <span class="chat-dot"></span>
+                    <span>онлайн</span>
+                </div>
+
+                <div id="chat-log" class="chat-log">
+                    <div class="chat-msg chat-msg-assistant" data-i18n="chat.greeting">Здравствуйте! Расскажите, какую задачу бизнеса хотите автоматизировать — подскажу подходящее решение.</div>
+                </div>
+
+                <form id="chat-form" class="chat-form">
+                    <input type="text" id="chat-input" data-i18n-placeholder="chat.placeholder" placeholder="Например: сколько стоит чат-бот?" autocomplete="off">
+                    <button type="submit" class="btn btn-primary btn-send" data-i18n="chat.send">Отправить</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="section contact-section">
+        <div class="wrap">
+            <h2 class="section-title" data-i18n="contact.title">Контакты</h2>
+
+            <div class="contact-wrap">
+                <!-- Левая колонка: контактная информация + соцсети -->
+                <div class="contact-left">
+                    <div class="contact-info-block">
+                        <h3 class="contact-info-title">Напишите нам или оставьте заявку!</h3>
+                        <ul class="contact-info">
+                            <li>
+                                <i class="fa-solid fa-location-dot"></i>
+                                <span>Алматы, пр. Назарбаева 223</span>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-phone"></i>
+                                <a href="tel:+77759838128">+7 775 983-81-28</a>
+                            </li>
+                            <li>
+                                <i class="fa-solid fa-envelope"></i>
+                                <a href="mailto:info@flow-tech.kz">info@flow-tech.kz</a>
+                            </li>
+                            <li>
+                                <i class="fa-regular fa-clock"></i>
+                                <span>Пн–Пт: 09:00–18:00</span>
+                            </li>
+                        </ul>
+
+                        <div class="social-btns">
+                            <a href="https://www.instagram.com/flowtechgroup/" class="social-btn" target="_blank" rel="noopener">
+                                <i class="fa-brands fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="https://api.whatsapp.com/send?phone=77759838128" class="social-btn" target="_blank" rel="noopener">
+                                <i class="fa-brands fa-whatsapp"></i>
+                                <span>WhatsApp</span>
+                            </a>
+                            <a href="https://go.2gis.com/qmGZS" class="social-btn" target="_blank" rel="noopener">
+                                <i class="fa-solid fa-map-location-dot"></i>
+                                <span>2GIS</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="contact-right">
+                    <form id="lead-form" class="lead-form" novalidate>
+                        <div class="form-row">
+                            <label for="name" data-i18n="contact.name">Имя</label>
+                            <input id="name" name="name" type="text" required maxlength="100">
+                            <span class="field-error" data-for="name"></span>
+                        </div>
+                        <div class="form-row">
+                            <label for="phone" data-i18n="contact.phone">Телефон</label>
+                            <input id="phone" name="phone" type="tel" placeholder="+7 7XX XXX-XX-XX" required>
+                            <span class="field-error" data-for="phone"></span>
+                        </div>
+                        <div class="form-row">
+                            <label for="company"><span data-i18n="contact.company">Компания</span> <span class="optional">(необязательно)</span></label>
+                            <input id="company" name="company" type="text" maxlength="150">
+                            <span class="field-error" data-for="company"></span>
+                        </div>
+                        <div class="form-row">
+                            <label for="message" data-i18n="contact.message">Задача</label>
+                            <textarea id="message" name="message" rows="4" maxlength="1000" placeholder="Что хотите автоматизировать?"></textarea>
+                            <span class="field-error" data-for="message"></span>
+                        </div>
+                        <button type="submit" class="btn btn-primary form-submit" data-i18n="contact.submit">Отправить заявку</button>
+                        <p id="form-status" class="form-status" role="status"></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+</main>
+
+<footer class="site-footer">
+    <div class="wrap footer-inner">
+        <div class="logo footer-logo">
+            <span class="logo-mark" aria-hidden="true">
+                <img src="/img/logo-icon.png" alt="" width="26" height="26">
+            </span>
+            FlowTech
+        </div>
+        <p class="footer-tagline" data-i18n="footer.tagline">Встраиваем ИИ в процессы, которые уже работают.</p>
+        <p class="footer-copy" data-i18n="footer.copy">© 2026 FlowTech. Все права защищены.</p>
+    </div>
+</footer>
+
+<script th:src="@{/js/main.js}"></script>
+</body>
+</html>
