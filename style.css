@@ -101,7 +101,7 @@ h1, h2, h3, h4 {
 
 body {
     /* Фон по умолчанию (тёмная тема) — подставь свою картинку для тёмного варианта */
-    background-image: url('/img/back-darkk.jpg');
+    background-image: url('back-darkk.jpg');
 
     /* Картинка зафиксирована и не будет прокручиваться вместе со страницей */
     background-attachment: fixed;
@@ -118,7 +118,7 @@ body {
 
 /* Фон для светлой темы — переопределяет дефолтный */
 [data-theme="light"] body {
-    background-image: url('/img/back11.jpg');
+    background-image: url('back11.jpg');
 }
 
 .section-title {
